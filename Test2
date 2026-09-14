@@ -1,34 +1,15 @@
-# 1. Terraform & Provider Setup
 terraform {
   required_providers {
-    local = {
-      source  = "hashicorp/local"
-      version = "~> 2.5.0"
+    aws = {
+      source = "hashicorp/aws"
+      configuration_aliases = [
+        aws.backup,
+        aws.prod
+      ]
     }
   }
 }
 
-# 2. Input Variables
-variable "file_content" {
-  type        = string
-  description = "The text content that will be written to the local file."
-  default     = "Hello, World! Terraform completed its onboarding successfully."
-}
+resource "null_resource" "test" {}
 
-variable "filename" {
-  type        = string
-  description = "The path and name of the file to create."
-  default     = "terraform_onboarding_test.txt"
-}
-
-# 3. Resources (What Terraform will build)
-resource "local_file" "onboarding_sample" {
-  content  = var.file_content
-  filename = "${path.module}/${var.filename}"
-}
-
-# 4. Outputs (Information printed after applying)
-output "created_file_path" {
-  value       = local_file.onboarding_sample.filename
-  description = "The absolute path of the created text file."
-}
+resource "null_resource" "test_3" {}
