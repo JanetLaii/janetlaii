@@ -1,5 +1,6 @@
 locals {
-  tags = merge({ Name = random_pet.name.id }, var.tags)
+  tags = {
+Name = random_pet.name.id 
 }
 
 resource "random_pet" "name" {
