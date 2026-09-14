@@ -1,16 +1,22 @@
 terraform {
+  required_version = ">= 1.6.0"
   required_providers {
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.6"
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.30"
     }
   }
 }
 
-resource "random_pet" "name" {
-  length = 2
+provider "aws" {
+  region = "us-east-1"
 }
 
-output "pet_name" {
-  value = random_pet.name.id
+resource "aws_s3_bucket" "onboarding_bucket" {
+  bucket = "my-company-onboarding-bucket-xyz"
+
+  tags = {
+    Environment = "Sandbox"
+    ManagedBy   = "Terraform"
+  }
 }
