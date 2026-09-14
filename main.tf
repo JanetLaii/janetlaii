@@ -1,10 +1,11 @@
-locals {
-  tags = {
-Name = random_pet.name.id 
-}
-
 resource "random_pet" "name" {
   length = 2
+}
+
+locals {
+  tags = {
+    Name = random_pet.name.id
+  }
 }
 
 resource "aws_launch_template" "main" {
